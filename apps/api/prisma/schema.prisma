@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // pega do .env em DATABASE_URL
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  username      String         @unique
+  email         String         @unique
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  conversations Conversation[]
+}
+
+model Conversation {
+  id         String     @id @default(cuid())
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  title      String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  messages   Message[]
+
+
+  channel        ChannelType @default(web)
+  externalChatId String?     @unique
+  isActive   Boolean    @default(true)
+  domainMode     DomainMode  @default(generic)
+}
+
+enum ChannelType {
+  web
+  telegram
+}
+enum DomainMode {
+  generic
+  mikrotik
+}
+
+
+model Message {
+  id             String       @id @default(cuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+  role           MessageRole
+  content        String
+  createdAt      DateTime     @default(now())
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
