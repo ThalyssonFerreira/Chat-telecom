@@ -10,8 +10,8 @@ node_modules/
 !.yarn/releases
 !.yarn/versions
 
-# Logs
-logs
+# Logs & caches
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -19,32 +19,26 @@ yarn-error.log*
 pnpm-debug.log*
 .pnpm-debug.log*
 .eslintcache
+.cache/
+.nyc_output/
 
 # -----------------------------
-# Next.js (monorepo)
+# Next.js
 # -----------------------------
-.next/
 **/.next/
-.next/cache/
-out/
 **/out/
-next-env.d.ts
 **/next-env.d.ts
 
 # -----------------------------
 # Build artifacts (api/web/packages)
 # -----------------------------
-dist/
 **/dist/
-build/
 **/build/
-coverage/
 **/coverage/
-*.tsbuildinfo
 **/*.tsbuildinfo
 
 # -----------------------------
-# Env files (keep examples)
+# Env files 
 # -----------------------------
 .env
 .env.*
@@ -52,9 +46,10 @@ coverage/
 **/.env.*
 !**/.env.example
 !**/.env.local.example
+.envrc
 
 # -----------------------------
-# Prisma / DB (local dev)
+# Prisma / DB 
 # -----------------------------
 *.db
 *.sqlite
@@ -64,8 +59,15 @@ prisma/dev.db
 apps/api/prisma/dev.db
 
 # -----------------------------
-# OS / Editor junk
+# Chaves/Certificados
 # -----------------------------
+*.pem
+*.key
+*.pfx
+*.crt
+*.cert
+
+
 .DS_Store
 Thumbs.db
 ehthumbs.db
@@ -78,19 +80,12 @@ desktop.ini
 *.swo
 *.orig
 
-# -----------------------------
-# Hosting/Deploy
-# -----------------------------
-.vercel
-**/.vercel
 
-# -----------------------------
+**/.vercel
 
 
 .env.docker
 docker-compose.override.yml
 
-# -----------------------------
 
-# -----------------------------
 .turbo/
